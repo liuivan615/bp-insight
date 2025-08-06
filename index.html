@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>血压监测 - BP Insight</title>
+  <!-- 基础样式 -->
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- 引入 ECharts，使用 SVG 渲染器 -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>血压监测助手</h1>
+    <p>输入血压读数，生成可视化表格和图表</p>
+  </header>
+  <main>
+    <!-- 声明事项 -->
+    <section id="disclaimer" class="card warning">
+      <strong>声明事项：</strong>仅用于信息展示与教育，不构成诊断或治疗建议。紧急症状请立即往医。
+    </section>
+    <!-- 数据录入区域 -->
+    <section id="form-section" class="card">
+      <h2>新增读数</h2>
+      <form id="entry-form">
+        <div class="form-row">
+          <label for="ts">时间戳</label>
+          <input type="datetime-local" id="ts" name="ts" required>
+        </div>
+        <div class="form-row">
+          <label for="sbp">收缩压 SBP (mmHg)</label>
+          <input type="number" id="sbp" name="sbp" min="60" max="260" required>
+        </div>
+        <div class="form-row">
+          <label for="dbp">舒张压 DBP (mmHg)</label>
+          <input type="number" id="dbp" name="dbp" min="30" max="150" required>
+        </div>
+        <div class="form-row">
+          <label for="hr">心率 HR (bpm)</label>
+          <input type="number" id="hr" name="hr" min="30" max="200">
+        </div>
+        <div class="form-row">
+          <label for="posture">体位</label>
+          <select id="posture" name="posture">
+            <option value="">--请选择--</option>
+            <option value="lying">卧位</option>
+            <option value="standing">站立</option>
+          </select>
+        </div>
+        <fieldset class="form-row">
+          <legend>症状 (可多选)</legend>
+          <label><input type="checkbox" name="symptoms" value="dizzy">头晕</label>
+          <label><input type="checkbox" name="symptoms" value="vision">眼前发黑</label>
+          <label><input type="checkbox" name="symptoms" value="palpitations">心惊</label>
+          <label><input type="checkbox" name="symptoms" value="chest_pain">胸疼</label>
+          <label><input type="checkbox" name="symptoms" value="dyspnea">气促</label>
+          <label><input type="checkbox" name="symptoms" value="neuro">神经症状</label>
+        </fieldset>
+        <div class="form-row">
+          <label>用药情况 (可选)</label>
+          <div id="meds-container"><!-- 动态药物输入 --></div>
+          <button type="button" id="add-med">添加药物</button>
+        </div>
+        <div class="form-row">
+          <label for="note">当前状况描述</label>
+          <textarea id="note" name="note" rows="2"></textarea>
+        </div>
+        <div class="form-row">
+          <button type="submit">保存读数</button>
+          <button type="button" id="paste-csv">批量粘贴 CSV</button>
+          <button type="button" id="export-csv">导出 CSV</button>
+          <button type="button" id="export-json">导出 JSON</button>
+          <button type="button" id="clear-data">清空数据</button>
+        </div>
+      </form>
+    </section>
+    <!-- 最新读数概览卡片 -->
+    <section id="latest-card" class="card">
+      <h2>最新读数概览</h2>
+      <div id="latest-content"></div>
+    </section>
+    <!-- 表格区 -->
+    <section id="tables-section" class="card">
+      <h2>读数表格</h2>
+      <div id="current-table-container"></div>
+      <div id="history-table-container"></div>
+      <div id="posture-table-container"></div>
+    </section>
+    <!-- 图表区 -->
+    <section id="charts-section" class="card">
+      <h2>趋势图表</h2>
+      <div class="chart-controls">
+        <label for="time-window">时间窗口</label>
+        <select id="time-window">
+          <option value="7">最近7天</option>
+          <option value="30">最近30天</option>
+          <option value="all">全部</option>
+        </select>
+      </div>
+      <div id="chart-timeseries" style="width:100%;height:320px;"></div>
+      <div id="chart-dayparts" style="width:100%;height:320px;"></div>
+      <div id="chart-map" style="width:100%;height:200px;"></div>
+    </section>
+  </main>
+  <!-- 脚本引入顺序：表格 > 图表 > 应用逻辑 -->
+  <script src="js/tables.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
