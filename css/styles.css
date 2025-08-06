@@ -1,0 +1,164 @@
+/* 基础样式 */
+:root {
+  /* 各级别颜色常量 */
+  --color-low: #6495ED;      /* 低血压蓝 */
+  --color-normal: #2E8B57;   /* 正常绿 */
+  --color-elevated: #CCCC00; /* 升高黄 */
+  --color-stage1: #FFA500;   /* 1级橙 */
+  --color-stage2: #FF4500;   /* 2级红橙 */
+  --color-crisis: #8B0000;   /* 危谨深红 */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.4;
+  background: #f5f5f5;
+  color: #333;
+}
+
+header {
+  background: #3f51b5;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+}
+
+main {
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 6px rgba(0,0,0,0.1);
+}
+
+.card.warning {
+  background: #ffe6e6;
+  border-left: 4px solid #ff5252;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.form-row label {
+  flex: 1 0 140px;
+  font-weight: bold;
+}
+
+.form-row input,
+.form-row select,
+.form-row textarea {
+  flex: 3 0 200px;
+  padding: 0.4rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-row button {
+  margin-right: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  background: #3f51b5;
+  border: none;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-row button:hover {
+  background: #303f9f;
+}
+
+fieldset.form-row {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+fieldset.form-row legend {
+  font-weight: bold;
+}
+
+fieldset.form-row label {
+  margin-right: 1rem;
+  font-weight: normal;
+}
+
+.med-entry {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+
+.med-entry input {
+  flex: 1 0 120px;
+}
+
+.med-entry button {
+  background: #e53935;
+  color: #fff;
+  padding: 0.3rem 0.6rem;
+  border: none;
+  border-radius: 4px;
+}
+
+.chart-controls {
+  margin-bottom: 0.5rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 0.4rem;
+  text-align: center;
+}
+
+th {
+  background: #fafafa;
+  cursor: pointer;
+  user-select: none;
+}
+
+tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+/* 级别颜色类 */
+.level-low { color: var(--color-low); }
+.level-normal { color: var(--color-normal); }
+.level-elevated { color: var(--color-elevated); }
+.level-stage1 { color: var(--color-stage1); }
+.level-stage2 { color: var(--color-stage2); }
+.level-crisis { color: var(--color-crisis); font-weight: bold; }
+
+/* 打印样式 */
+@media print {
+  body { background: #fff; color: #000; }
+  .card { box-shadow: none; border: none; }
+  #form-section,
+  .chart-controls,
+  #add-med,
+  #paste-csv,
+  #export-csv,
+  #export-json,
+  #clear-data { display: none !important; }
+  table, th, td { border: 1px solid #000; }
+}
